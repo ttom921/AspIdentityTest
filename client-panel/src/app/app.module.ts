@@ -13,7 +13,9 @@ import { HomeComponent } from './home/home.component';
 import { ClientsComponent } from './components/clients/clients.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 
-import { ClientService } from './serrvices/client.service';
+import { ClientService } from './services/client.service';
+import { AuthService } from './services/auth.service';
+import { LoginCallbackComponent } from './components/login-callback/login-callback.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +26,7 @@ import { ClientService } from './serrvices/client.service';
     HomeComponent,
     ClientsComponent,
     DashboardComponent,
+    LoginCallbackComponent,
   ],
   imports: [
     BrowserModule,
@@ -31,7 +34,10 @@ import { ClientService } from './serrvices/client.service';
     HttpClientModule,
     AppRoutingModule
   ],
-  providers: [ClientService],
+  providers: [
+    ClientService,
+    AuthService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
