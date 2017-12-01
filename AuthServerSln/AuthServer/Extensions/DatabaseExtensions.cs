@@ -20,19 +20,19 @@ namespace AuthServer.Extensions
 
                 applicationDbContext.Database.Migrate();
                 persistedGrantDbContext.Database.Migrate();
-                //var userManager = serviceScope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
-                //Task.Run(async () =>
-                //{
-                //    var admin = await userManager.FindByNameAsync("admin");
-                //    if (admin == null)
-                //    {
-                //        await userManager.CreateAsync(new ApplicationUser
-                //        {
-                //            UserName = "admin",
-                //            Email = "ttom@gomo2o.com"
-                //        }, "admin");
-                //    }
-                //}).GetAwaiter().GetResult();
+                var userManager = serviceScope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+                Task.Run(async () =>
+                {
+                    var admin = await userManager.FindByNameAsync("admin");
+                    if (admin == null)
+                    {
+                        await userManager.CreateAsync(new ApplicationUser
+                        {
+                            UserName = "ttom@gomo2o.com",
+                            Email = "ttom@gomo2o.com"
+                        }, "admin");
+                    }
+                }).GetAwaiter().GetResult();
 
             }
         }

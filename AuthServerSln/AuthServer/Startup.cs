@@ -13,6 +13,9 @@ using AuthServer.Models;
 using AuthServer.Services;
 using System.Reflection;
 using AuthServer.Extensions;
+using AuthServer.Configuration;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using AuthServer.SharedSettings.Policies;
 
 namespace AuthServer
 {
@@ -52,9 +55,9 @@ namespace AuthServer
              //.AddSigningCredential(new X509Certificate2(Path.Combine(AppContext.BaseDirectory, "socialnetwork.pfx"), "12345678"))
              //#endif
 
-             //.AddInMemoryIdentityResources(Config.GetIdentityResources())
-             //.AddInMemoryApiResources(Config.GetApiResources())
-             //.AddInMemoryClients(Config.GetClients())
+             .AddInMemoryIdentityResources(Config.GetIdentityResources())
+             .AddInMemoryApiResources(Config.GetApiResources())
+             .AddInMemoryClients(Config.GetClients())
              .AddConfigurationStore(options =>
              {
                  options.ConfigureDbContext = builder =>
@@ -73,6 +76,12 @@ namespace AuthServer
               //加入asp identity
               .AddAspNetIdentity<ApplicationUser>()
               ;
+            //加入授權admin
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy(CoreApiAuthorizationPolicy.PolicyName, policy =>
+                    policy.RequireClaim(CoreApiAuthorizationPolicy.ClaimName, CoreApiAuthorizationPolicy.ClaimValue));
+            });
         }
 
         //設定Asp Net Identity
@@ -115,6 +124,17 @@ namespace AuthServer
                .AddEntityFrameworkStores<ApplicationDbContext>()
                .AddDefaultTokenProviders();
 
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.Cookie.Name = "GomoAuthorizationServerCookie";
+                options.Cookie.HttpOnly = true;
+                options.ExpireTimeSpan = TimeSpan.FromMinutes(60);
+                options.LoginPath = "/Account/Login";
+                options.LogoutPath = "/Account/Logout";
+                options.AccessDeniedPath = "/Account/AccessDenied";
+                options.SlidingExpiration = true;
+                options.ReturnUrlParameter = CookieAuthenticationDefaults.ReturnUrlParameter;
+            });
             // Add application services.
             services.AddTransient<IEmailSender, EmailSender>();
         }
