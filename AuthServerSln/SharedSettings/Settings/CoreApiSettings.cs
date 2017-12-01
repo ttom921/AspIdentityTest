@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Text;
 
-namespace AuthServer.SharedSettings.Settings
+namespace SharedSettings.Settings
 {
     public class CoreApiSettings
     {
@@ -12,6 +11,6 @@ namespace AuthServer.SharedSettings.Settings
         public static string CorsOrigin = UriBase;
         public static (string Name, string DisplayName) ApiResource = ("coreapi", "核心系统 API");
         public static (string ClientId, string ClientName, string RedirectUri, string SilentRedirectUri, string PostLogoutRedirectUris, string AllowedCorsOrigins) Client =
-           ("core", "核心系统", $"{UriBase}/login-callback", $"{UriBase}/silent-renew.html", $"{UriBase}/index.html", $"{UriBase}");
+            ("core", "核心系统", $"{UriBase}/login-callback", $"{UriBase}/silent-renew.html", $"{UriBase}/index.html", $"{UriBase}");
     }
 }

@@ -1,7 +1,7 @@
-﻿using AuthServer.SharedSettings.Settings;
-using IdentityModel;
+﻿using IdentityModel;
 using IdentityServer4;
 using IdentityServer4.Models;
+using SharedSettings.Settings;
 using System;
 using System.Collections.Generic;
 using System.Linq;

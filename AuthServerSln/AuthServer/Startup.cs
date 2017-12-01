@@ -15,7 +15,7 @@ using System.Reflection;
 using AuthServer.Extensions;
 using AuthServer.Configuration;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using AuthServer.SharedSettings.Policies;
+using SharedSettings.Policies;
 
 namespace AuthServer
 {
