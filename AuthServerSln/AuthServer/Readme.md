@@ -1,0 +1,8 @@
+﻿安裝以下的package
+IdentityServer4
+IdentityServer4.AspNetIdentity
+Pomelo.EntityFrameworkCore.MySql
+//資料庫操作對IdentityServer4
+dotnet ef migrations add InitialIdentityServerPersistedGrantDbMigration -c PersistedGrantDbContext -o Data/Migrations/IdentityServer/PersistedGrantDb
+
+dotnet ef migrations add InitialIdentityServerConfigurationDbMigration -c ConfigurationDbContext -o Data/Migrations/IdentityServer/ConfigurationDb
