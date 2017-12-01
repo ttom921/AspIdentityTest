@@ -6,7 +6,7 @@ namespace SharedSettings.Settings
 {
     public class CoreApiSettings
     {
-        public const string UriBase = "http://localhost:4200";
+        public const string UriBase = "http://localhost:5200";
         public static string CorsPolicyName = "default";
         public static string CorsOrigin = UriBase;
         public static (string Name, string DisplayName) ApiResource = ("coreapi", "核心系统 API");

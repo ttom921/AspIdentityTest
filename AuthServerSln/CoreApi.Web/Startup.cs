@@ -28,7 +28,17 @@ namespace CoreApi.Web
         public void ConfigureServices(IServiceCollection services)
         {
             //加入資料庫
-
+            //加入cros
+            services.AddCors();
+            //services.AddCors(options =>
+            //{
+            //    options.AddPolicy(CoreApiSettings.CorsPolicyName, policy =>
+            //    {
+            //        policy.WithOrigins(CoreApiSettings.CorsOrigin)
+            //            .AllowAnyHeader()
+            //            .AllowAnyMethod();
+            //    });
+            //});
             //加入MVC的框架
             services.AddMvc().AddJsonOptions(options =>
             {
@@ -55,22 +65,20 @@ namespace CoreApi.Web
                    options.ApiName = CoreApiSettings.ApiResource.Name;
                });
 
-            services.AddCors(options =>
-            {
-                options.AddPolicy(CoreApiSettings.CorsPolicyName, policy =>
-                {
-                    policy.WithOrigins(CoreApiSettings.CorsOrigin)
-                        .AllowAnyHeader()
-                        .AllowAnyMethod();
-                });
-            });
+            
 
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            app.UseCors(CoreApiSettings.CorsPolicyName);
+            //app.UseCors(CoreApiSettings.CorsPolicyName);
+            app.UseCors(builder => builder
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader()
+                .AllowCredentials());
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
