@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
+import { FlashMessagesModule } from 'angular2-flash-messages';
 
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
@@ -32,6 +33,7 @@ import { LoginCallbackComponent } from './components/login-callback/login-callba
     BrowserModule,
     HttpModule,
     HttpClientModule,
+    FlashMessagesModule.forRoot(),
     AppRoutingModule
   ],
   providers: [

@@ -36,7 +36,8 @@ namespace AuthServer
             //設定DB連接字串
             connectionString = Configuration.GetConnectionString("DefaultConnection");
             migrationsAssembly = typeof(Startup).GetTypeInfo().Assembly.GetName().Name;
-
+            //加入cros
+            services.AddCors();
             //設定Asp Net Identity
             SetUpAspIdentity(services);
 
@@ -142,6 +143,11 @@ namespace AuthServer
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            app.UseCors(builder => builder
+               .AllowAnyOrigin()
+               .AllowAnyMethod()
+               .AllowAnyHeader()
+               .AllowCredentials());
             //自動db migration
             app.InitializeDatabase();
             if (env.IsDevelopment())

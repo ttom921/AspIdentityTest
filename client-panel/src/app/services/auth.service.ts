@@ -55,6 +55,7 @@ export class AuthService implements OnInit {
   logout() {
     this.manager.signoutRedirect();
   }
+  
   private tryGetUser() {
     return Observable.fromPromise(this.manager.getUser());
   }
