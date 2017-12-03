@@ -20,7 +20,8 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { ClientService } from './services/client.service';
 
 import { LoginCallbackComponent } from './components/login-callback/login-callback.component';
-
+import { FlashMessagesModule } from 'angular2-flash-messages';
+import { AuthService } from './services/auth.service';
 
 
 
@@ -39,10 +40,12 @@ import { LoginCallbackComponent } from './components/login-callback/login-callba
     BrowserModule,
     HttpModule,
     HttpClientModule,
+    FlashMessagesModule.forRoot(),
     AppRoutingModule
   ],
   providers: [
-    ClientService
+    ClientService,
+    AuthService
   ],
   bootstrap: [AppComponent]
 })
