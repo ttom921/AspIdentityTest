@@ -25,25 +25,25 @@ namespace AuthorizationServer.Extensions
 
                 applicationDbContext.Database.Migrate();
                 persistedGrantDbContext.Database.Migrate();
-                //
-                var configContext = serviceScope.ServiceProvider.GetRequiredService<ConfigurationDbContext>();
-                if (!configContext.Clients.Any())
-                {
-                    foreach (var client in Config.GetClients())
-                    {
-                        configContext.Clients.Add(client.ToEntity());
-                    }
-                    configContext.SaveChanges();
-                }
-                if (!configContext.IdentityResources.Any())
-                {
-                    foreach (var resource in Config.GetIdentityResources())
-                    {
-                        configContext.IdentityResources.Add(resource.ToEntity());
-                    }
-                    configContext.SaveChanges();
-                }
-                //
+                ////
+                //var configContext = serviceScope.ServiceProvider.GetRequiredService<ConfigurationDbContext>();
+                //if (!configContext.Clients.Any())
+                //{
+                //    foreach (var client in Config.GetClients())
+                //    {
+                //        configContext.Clients.Add(client.ToEntity());
+                //    }
+                //    configContext.SaveChanges();
+                //}
+                //if (!configContext.IdentityResources.Any())
+                //{
+                //    foreach (var resource in Config.GetIdentityResources())
+                //    {
+                //        configContext.IdentityResources.Add(resource.ToEntity());
+                //    }
+                //    configContext.SaveChanges();
+                //}
+                ////
                 var userManager = serviceScope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
                 Task.Run(async () =>
                 {
@@ -59,14 +59,14 @@ namespace AuthorizationServer.Extensions
                 }).GetAwaiter().GetResult();
 
 
-                if (configContext.ApiResources.Any()) return;
+                //if (configContext.ApiResources.Any()) return;
 
-                foreach (var resource in Config.GetApiResources())
-                {
-                    configContext.ApiResources.Add(resource.ToEntity());
-                }
+                //foreach (var resource in Config.GetApiResources())
+                //{
+                //    configContext.ApiResources.Add(resource.ToEntity());
+                //}
 
-                configContext.SaveChanges();
+                //configContext.SaveChanges();
 
             }
         }
