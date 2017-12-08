@@ -17,3 +17,8 @@ dotnet ef migrations add InitialIdentityServerConfigurationDbMigration -c Config
 2.將其中的一張表刪除，PersistedGrants
 3.直接執行
 
+//登出登入問題
+1.在AuthoriaztionServer在設定client端時要加入PostLogoutRedirectUris的登出網址
+2.在NG2端的設定不用加
+
+

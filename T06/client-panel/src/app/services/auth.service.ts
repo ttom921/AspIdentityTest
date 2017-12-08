@@ -10,7 +10,7 @@ const config: any = {
   redirect_uri: 'http://localhost:4200/login-callback',
   response_type: 'id_token token',
   scope: 'openid profile email salesapi',
-  post_logout_redirect_uri: 'http://localhost:4200',
+  // post_logout_redirect_uri: 'http://localhost:4200',
   silent_redirect_uri: 'http://localhost:4200/silent-renew.html',
   automaticSilentRenew: true,
   accessTokenExpiringNotificationTime: 4,
