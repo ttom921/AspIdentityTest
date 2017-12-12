@@ -1,0 +1,6 @@
+﻿Authorization的server
+1.選擇individ 認證
+Pomelo.EntityFrameworkCore.MySql
+IdentityServer4
+IdentityServer4.EntityFramework
+IdentityServer4.AspNetIdentity
