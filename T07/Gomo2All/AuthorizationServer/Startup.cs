@@ -15,6 +15,7 @@ using System.Reflection;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using AuthorizationServer.Configuration;
 using AuthorizationServer.Extensions;
+using IdentityServer4.Services;
 
 namespace AuthorizationServer
 {
@@ -85,7 +86,10 @@ namespace AuthorizationServer
                  options.ReturnUrlParameter = CookieAuthenticationDefaults.ReturnUrlParameter;
              });
             // Add application services.
+            //加入身分
+            services.AddTransient<IProfileService, IdentityWithAdditionalClaimsProfileService>();
             services.AddTransient<IEmailSender, EmailSender>();
+            //services.AddTransient<ISmsSender, AuthMessageSender>();
 
             services.AddMvc();
 
@@ -115,7 +119,9 @@ namespace AuthorizationServer
                     options.EnableTokenCleanup = true;
                     options.TokenCleanupInterval = 30;
                 })
-                .AddAspNetIdentity<ApplicationUser>();
+                .AddAspNetIdentity<ApplicationUser>()
+                .AddProfileService<IdentityWithAdditionalClaimsProfileService>()//身分
+                ;
 
             //services.AddAuthorization(options =>
             //{

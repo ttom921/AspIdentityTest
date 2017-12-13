@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from '../../services/auth.service';
+import { AuthService } from '../services/auth.service';
 import 'rxjs/add/operator/map';
 import { User } from 'oidc-client';
 import { FlashMessagesService } from 'angular2-flash-messages';
@@ -14,7 +14,6 @@ export class NavbarComponent implements OnInit {
 
   public isLoggedIn: boolean;
   public loggedInUser: User;
-
   constructor(
     private authService: AuthService,
     private router: Router,
