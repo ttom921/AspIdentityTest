@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { User } from 'oidc-client';
+import { AuthService } from '../services/auth.service';
+import { NavbarComponent } from '../navbar/navbar.component';
 
 @Component({
   selector: 'app-login',
@@ -7,9 +10,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginComponent implements OnInit {
 
-  constructor() { }
+  public loggedInUser: User;
+
+  constructor(
+    private _navcom:NavbarComponent
+  ) { }
 
   ngOnInit() {
+   this.loggedInUser= this._navcom.loggedInUser;
+   console.log("aaaaa=>"+this.loggedInUser)
   }
 
 }
