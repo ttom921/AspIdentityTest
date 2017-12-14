@@ -1,0 +1,24 @@
+<table class="table table-striped" *ngIf="clients?.length > 0; else noClients">
+    <thead class="thead-dark">
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Balance</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let client of clients">
+        <td>{{client.id}}</td>
+        <td>{{client.firstName + ' ' + client.lastName}}</td>
+        <td>{{client.email}}</td>
+        <td>{{client.balance}}</td>
+        <td><a href="" class="btn btn-secondary btn-sm"><i class="fa fa-arrow-circle-o-right"></i>明细</a></td>
+      </tr>
+    </tbody>
+  </table>
+  <ng-template #noClients>
+    <hr>
+    <h5>系统中没有客户..</h5>
+  </ng-template>

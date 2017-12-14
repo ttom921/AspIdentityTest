@@ -1,3 +1,4 @@
+import { ClientsComponent } from './clients/clients.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { HomeComponent } from './home/home.component';
 import { Routes, RouterModule } from '@angular/router';
@@ -8,6 +9,7 @@ const appRoutes: Routes = [
     { path: '', component: HomeComponent },
     { path: 'login', component: LoginComponent },
     { path: 'login-callback', component: LoginCallbackComponent },
+    { path: 'clients', component: ClientsComponent },
     { path: '**', component: PageNotFoundComponent }
 ];
 

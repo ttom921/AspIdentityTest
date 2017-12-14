@@ -1,22 +1,9 @@
+import { environment } from './../../environments/environment.prod';
 import { Injectable, OnInit, EventEmitter } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { User, UserManager, Log, WebStorageStateStore } from 'oidc-client';
 import 'rxjs/add/observable/fromPromise';
 import { Router } from '@angular/router';
-
-const config: any = {
-  authority: 'http://localhost:5000',
-  client_id: 'sales',
-  redirect_uri: 'http://localhost:4200/login-callback',
-  response_type: 'id_token token',
-  scope: 'openid profile email salesapi',
-  // post_logout_redirect_uri: 'http://localhost:4200',
-  silent_redirect_uri: 'http://localhost:4200/silent-renew.html',
-  automaticSilentRenew: true,
-  // silentRequestTimeout: 6000,
-  accessTokenExpiringNotificationTime: 60,
-  userStore: new WebStorageStateStore({ store: window.localStorage })
-};
 
 
 Log.logger = console;
@@ -25,8 +12,9 @@ Log.level = Log.DEBUG;
 @Injectable()
 export class AuthService {
 
-  private manager: UserManager = new UserManager(config);
+  private manager: UserManager = new UserManager(environment.authConfig);
   public loginStatusChanged: EventEmitter<User> = new EventEmitter();
+  private userKey = `oidc.user: ${environment.authConfig}:${environment.authConfig.client_id}`;
 
   constructor(private router: Router) {
 
@@ -44,17 +32,10 @@ export class AuthService {
       Observable.fromPromise(this.manager.signinRedirectCallback())
         .subscribe((user: User) => {
           this.loginStatusChanged.emit(user);
+          localStorage.setItem(this.userKey, JSON.stringify(user));
           observer.next(user);
           observer.complete();
         });
-    });
-  }
-
-  checkUser() {
-    this.tryGetUser().subscribe((user: User) => {
-      this.loginStatusChanged.emit(user);
-    }, e => {
-      this.loginStatusChanged.emit(null);
     });
   }
 
@@ -75,4 +56,32 @@ export class AuthService {
     });
     // this.manager.signoutRedirect();
   }
+  get type(): string {
+    return 'Bearer';
+  }
+
+  get token(): string | null {
+    const temp = localStorage.getItem(this.userKey);
+    if (temp) {
+      const user: User = JSON.parse(temp);
+      return user.access_token;
+    }
+    return null;
+  }
+
+  get authorizationHeader(): string | null {
+    if (this.token) {
+      return `${this.type} ${this.token}`;
+    }
+    return null;
+  }
+
+  checkUser() {
+    this.tryGetUser().subscribe((user: User) => {
+      this.loginStatusChanged.emit(user);
+    }, e => {
+      this.loginStatusChanged.emit(null);
+    });
+  }
+
 }

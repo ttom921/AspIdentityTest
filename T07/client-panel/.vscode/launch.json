@@ -4,11 +4,19 @@
     // 如需詳細資訊，請瀏覽: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
+        
+{
+    "type": "chrome",
+    "request": "launch",
+    "name": "Launch Chrome",
+    "url": "http://localhost:4200",
+    "webRoot": "${workspaceRoot}"
+},
         {
-            "name": "Launch localhost",
             "type": "firefox",
             "request": "launch",
-            "reAttach": true,
+            "reAttach": false,
+            "name": "Launch firefox",
             "url": "http://localhost:4200/",
             "webRoot": "${workspaceFolder}"
         }
