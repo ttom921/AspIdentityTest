@@ -16,7 +16,7 @@ export class LoginComponent implements OnInit {
 
   public loggedInUser: User;
 
-  public mydata: any;
+  public mydata: Claim[];
 
 
   //protected apiBase = 'http://localhost:5100/api/Identity/get';
@@ -32,16 +32,21 @@ export class LoginComponent implements OnInit {
     // console.log('aaaaa=>' + this.loggedInUser);
 
   }
-  get(): any {
+  get() {
     // return { a: 'aaaa', b: 'bbbb' };
-    this.mydata = { a: 'aaaa', b: 'ggggg' };
-     this.mydata = this.getPosts();
+    //this.mydata = { a: 'aaaa', b: 'ggggg' };
+      this.getPosts().subscribe( claims => this.mydata = claims,
+      err => {
+        console.log(err);
+      });
     // this.mydata = this.service.get();
   }
   getPosts(): Observable<Claim[]> {
-    const apiBase = 'http://localhost:5100/api/values';
+    const apiBase = 'http://localhost:5100/api/Identity/get';
     return this.http.get(apiBase)
-      .map(res => res.json() as Claim[]);
+      .map((res: Response) => res.json())
+      // ...error any
+      .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
   }
 
 }
