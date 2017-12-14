@@ -15,12 +15,13 @@ export class ClaimService {
   ) {
    
   }
-
+  //private headers = new Headers({ 'Access-Control-Allow-Origin': '*' , 'Content-Type': 'application/json' });
   private setHeaders() {
 
     console.log('setHeaders started');
 
     this.headers = new Headers();
+    this.headers.append('Access-Control-Allow-Origin', '*');
     this.headers.append('Content-Type', 'application/json');
     this.headers.append('Accept', 'application/json');
 
@@ -35,14 +36,17 @@ export class ClaimService {
   get(): Observable<Claim[]> {
     this.setHeaders();
     const options = new RequestOptions({ headers: this.headers, body: '' });
-   /*  return this.http.get(this.apiBase, options)
-      .map(res => res.json()); */
+     return this.http.get(this.apiBase, options)
+      .map(res => res.json())
+      .catch((error: any) => Observable.throw(error.json().error || 'Server error'))
+     ;
+      
 
      /*  return this.http.get(this.apiBase)
       .map(res => res.json()); */
 
-      return this.http.get(this.apiBase)
-      .map(response => response.json() as Claim[]);
+      /* return this.http.get(this.apiBase)
+      .map(response => response.json() as Claim[]); */
 
   }
   

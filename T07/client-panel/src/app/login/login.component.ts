@@ -33,6 +33,15 @@ export class LoginComponent implements OnInit {
 
   }
   get() {
+    this.service.get().subscribe(
+      claims =>{
+        this.mydata=claims
+      },
+      err=>{
+        console.log(err);
+      }
+    );
+
     // return { a: 'aaaa', b: 'bbbb' };
     //this.mydata = { a: 'aaaa', b: 'ggggg' };
       this.getPosts().subscribe( claims => this.mydata = claims,

@@ -15,7 +15,7 @@ namespace SalesApi.Web.Controllers
         [HttpGet]
         [Route("get")]
         //[Authorize(Roles = "PaidUser")]
-        //[Authorize(Policy = "dataEventRecordsAdmin")]
+        [Authorize(Policy = "dataEventRecordsAdmin")]
         //[Authorize("admin")]
         public IActionResult Get()
         {
