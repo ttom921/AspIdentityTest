@@ -14,18 +14,27 @@ namespace SalesApi.Web.Controllers
     {
         [HttpGet]
         [Route("get")]
-        //[Authorize(Roles = "PaidUser")]
-        [Authorize(Policy = "dataEventRecordsAdmin")]
+        //[Authorize(Roles = "admin")]
         //[Authorize("admin")]
+
+        //[Authorize(Policy = "dataEventRecordsAdmin")]
+        //[Authorize(Policy = "admin")]
+        [Authorize(Roles = "admin")]
         public IActionResult Get()
         {
             return new JsonResult(from c in User.Claims select new { c.Type, c.Value });
         }
-        //[Authorize(Roles = "FreeUser")]
-        [Authorize(Policy = "dataEventRecordsUser")]
+        //[Authorize(Roles = "user")]
+
         //[Authorize("admin")]
+
+        //[Authorize(Policy = "dataEventRecordsUser")]
+        
         [HttpGet]
         [Route("getfree")]
+        [Authorize(Roles = "admin,user")]
+       // [Authorize(Policy = "admin")]
+        //[Authorize(Policy = "user")]
         public IActionResult GetFreeUser()
         {
             return new JsonResult(from c in User.Claims select new { c.Type, c.Value });

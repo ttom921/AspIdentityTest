@@ -13,6 +13,7 @@ using SalesApi.Shared.Settings;
 using SharedSettings.Settings;
 using IdentityServer4.AccessTokenValidation;
 using Newtonsoft.Json.Serialization;
+using IdentityModel;
 
 namespace SalesApi.Web
 {
@@ -60,17 +61,25 @@ namespace SalesApi.Web
 
             services.AddAuthorization(options => 
             {
-                options.AddPolicy("dataEventRecordsAdmin", policyAdmin =>
+                //options.AddPolicy("dataEventRecordsAdmin", policyAdmin =>
+                //{
+                //    policyAdmin.RequireClaim("role", "dataEventRecords.admin");
+                //});
+                //options.AddPolicy("dataEventRecordsUser", policyUser =>
+                //{
+                //    policyUser.RequireClaim("role", "dataEventRecords.user");
+                //});
+                //options.AddPolicy("dataEventRecords", policyUser =>
+                //{
+                //    policyUser.RequireClaim("scope", "dataEventRecords");
+                //});
+                options.AddPolicy("admin", policyAdmin =>
                 {
-                    policyAdmin.RequireClaim("role", "dataEventRecords.admin");
+                    policyAdmin.RequireClaim(JwtClaimTypes.Role, "admin");
                 });
-                options.AddPolicy("dataEventRecordsUser", policyUser =>
+                options.AddPolicy("user", policyUser =>
                 {
-                    policyUser.RequireClaim("role", "dataEventRecords.user");
-                });
-                options.AddPolicy("dataEventRecords", policyUser =>
-                {
-                    policyUser.RequireClaim("scope", "dataEventRecords");
+                    policyUser.RequireClaim(JwtClaimTypes.Role,"user");
                 });
             });
 
