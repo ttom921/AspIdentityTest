@@ -62,6 +62,21 @@ namespace AuthorizationServer.Extensions
 
                     }, "1234");
                     }
+                    var  user= await userManager.FindByNameAsync("test@gomo2o.com");
+                    if(user==null)
+                    {
+                        await userManager.CreateAsync(new ApplicationUser
+                        {
+                            UserName = "test@gomo2o.com",
+                            Email = "test@gomo2o.com",
+                            //
+                            IsAdmin = false,
+                            DataEventRecordsRole = "dataEventRecords.user",
+                            SecuredFilesRole = "securedFiles.user"
+
+                        }, "1234");
+                    }
+
                 }).GetAwaiter().GetResult();
 
 

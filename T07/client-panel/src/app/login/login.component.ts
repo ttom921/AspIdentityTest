@@ -34,16 +34,16 @@ export class LoginComponent implements OnInit {
   }
   get() {
     this.service.get().subscribe(
-      claims =>{
-        this.mydata=claims
+      claims => {
+        this.mydata = claims;
       },
-      err=>{
+      err => {
         console.log(err);
       }
     );
 
     // return { a: 'aaaa', b: 'bbbb' };
-    //this.mydata = { a: 'aaaa', b: 'ggggg' };
+    // this.mydata = { a: 'aaaa', b: 'ggggg' };
       this.getPosts().subscribe( claims => this.mydata = claims,
       err => {
         console.log(err);
@@ -56,6 +56,30 @@ export class LoginComponent implements OnInit {
       .map((res: Response) => res.json())
       // ...error any
       .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+  }
+
+  getfreeuser() {
+    // const apiBase = 'http://localhost:5100/api/Identity/get';
+
+    const apiadd = 'http://localhost:5100/api/Identity/getfree';
+
+    this.service.getfreeuser(apiadd).subscribe(
+      claims => {
+        this.mydata = claims;
+      },
+      err => {
+        console.log(err);
+      });
+  }
+  getbyfree() {
+    this.service.get().subscribe(
+      claims => {
+        this.mydata = claims;
+      },
+      err => {
+        console.log(err);
+      }
+    );
   }
 
 }

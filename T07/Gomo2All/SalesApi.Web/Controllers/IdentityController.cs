@@ -22,7 +22,7 @@ namespace SalesApi.Web.Controllers
             return new JsonResult(from c in User.Claims select new { c.Type, c.Value });
         }
         //[Authorize(Roles = "FreeUser")]
-        //[Authorize(Policy = "dataEventRecordsUser")]
+        [Authorize(Policy = "dataEventRecordsUser")]
         //[Authorize("admin")]
         [HttpGet]
         [Route("getfree")]
