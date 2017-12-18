@@ -1,0 +1,19 @@
+<p>
+  login works!
+</p>
+<div>
+  <pre>
+      {{loggedInUser | json}}
+  </pre>
+</div>
+<div>
+  <a href="#" routerLink="/clients">GetAllClients </a>
+  <button (click)="get()">get</button>
+  <button (click)="getfreeuser()" >getfreeuser</button>
+  <button (click)="getbyfree()" >getbyfreeuser</button>
+   <br>
+  <button (click)="getpromse()" >getpromse</button>
+  <pre>
+      {{mydata | json}}
+  </pre>
+</div>
