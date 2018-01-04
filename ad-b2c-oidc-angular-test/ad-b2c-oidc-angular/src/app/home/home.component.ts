@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
 import { Subscription } from 'rxjs/Subscription';
+import { environment } from 'environments/environment';
 
 @Component({
   selector: 'app-home',
@@ -21,6 +22,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.isAuthorizedSubscription = this.oidcSecurityService.getIsAuthorized()
       .subscribe(isAuthorized => this.isAuthorized = isAuthorized);
+
+      //console.log('environment.production='+environment.production);
   }
 
   ngOnDestroy() {
